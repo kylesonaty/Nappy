@@ -16,5 +16,10 @@ type ProductModule() =
     override this.Get(id) =
         let product = { name = "A"; price = 3.99m}
         product
-        
-    // need to implement post, put, and delete
+    override this.Post(product) = 
+        printfn "Product -> Name: %A Price: %A" product.name product.price
+        "the url of the new product"
+    override this.Post(id, product) =
+        printfn "Product -> ID: %A Name: %A Price: %A" id product.name product.price
+
+    // need to implement put and delete

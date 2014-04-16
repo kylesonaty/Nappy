@@ -3,6 +3,7 @@
 open System
 open System.Collections.Generic
 open System.Dynamic
+open System.Reflection
 open Microsoft.Owin
 
 [<Interface>]
@@ -19,27 +20,27 @@ type NappyModule<'a> () =
         member this.After(context) = context |> ignore
         member this.Error(context, exn) = context |> ignore
         member this.Execute(description) = 
-            let list = Seq.empty<'a> // need to get this from the body and model bind
-            let item = Unchecked.defaultof<'a> // need to get this from the body and model bind
+            let instanceType = this.GetType().BaseType.GenericTypeArguments |> Seq.head
+            let model = Binder.Bind(instanceType, description.Body, description.ContentType)
 
             match description.Identifier with
             | id when id |> String.IsNullOrEmpty -> 
                 match description.Method with
                     | HttpMethod.Get -> this.Get() :> obj
-                    | HttpMethod.Put -> this.Put(list) :> obj 
-                    | HttpMethod.Post -> this.Post(item) :> obj
+                    | HttpMethod.Put -> this.Put(model :?> IEnumerable<'a>) :> obj 
+                    | HttpMethod.Post -> this.Post(model :?> 'a) :> obj
                     | HttpMethod.Delete -> this.Delete() :> obj
             | id ->
                 match description.Method with
                     | HttpMethod.Get -> this.Get(id) :> obj
-                    | HttpMethod.Put ->this.Put(id, list) :> obj 
-                    | HttpMethod.Post -> this.Post(id, item) :> obj
+                    | HttpMethod.Put ->this.Put(id, model :?> IEnumerable<'a>) :> obj 
+                    | HttpMethod.Post -> this.Post(id, model :?> 'a) :> obj
                     | HttpMethod.Delete -> this.Delete(id) :> obj
 
     abstract member Get: unit -> IEnumerable<'a>
     abstract member Get: string -> 'a
 
-    abstract member Post: 'a-> unit
+    abstract member Post: 'a-> string
     abstract member Post: string * 'a -> unit 
 
     abstract member Put: IEnumerable<'a> -> unit

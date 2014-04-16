@@ -1,6 +1,7 @@
 ﻿namespace Nappy
 
 open System
+open System.IO
 open Microsoft.Owin
 
 type ActionDescription (context:IOwinContext) = 
@@ -21,13 +22,15 @@ type ActionDescription (context:IOwinContext) =
         httpMethod
 
     let getBody (request:IOwinRequest) = 
-        let chars = 
-            request.Body.AsyncRead(int request.Body.Length)
-                |> Async.RunSynchronously 
-                |> System.Text.Encoding.UTF8.GetChars 
-        new String(chars)
+        let sr = new StreamReader(request.Body)
+        sr.ReadToEnd()
+
+
+    let getContentType (request:IOwinRequest) =
+        ContentTypes.GetContentType(request.ContentType)
 
     member this.Context = context
     member this.Identifier = this.Context.Request |> getIdentifierFromRequest
     member this.Method = this.Context.Request |> getHttpMethod
     member this.Body = this.Context.Request |> getBody
+    member this.ContentType = this.Context.Request |> getContentType
