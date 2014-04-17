@@ -1,7 +1,5 @@
 # Nappy #
 
-----------
-
 Nappy is an opinionated REST framework for .NET. It is written in F# and uses the [Owin](http://owin.org/) web interfaces for .NET.
 
 
@@ -44,6 +42,7 @@ type ProductModule() =
         // return a list of URIs of where the product is at.
 		[|"1";"2";"3"|] |> Seq.cast
     override this.Get(id) =
+		// return the product at the specified id
         let product = { name = "A"; price = 3.99m}
         product
 ```
@@ -55,10 +54,10 @@ override this.Get()
 override this.Get(id)
 ```
 These allow you to handle:
-`
-/product
-/product/123
-`
+
+`/product`
+
+`/product/123`
 
 ## Nuget ##
 
