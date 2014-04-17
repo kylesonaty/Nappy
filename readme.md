@@ -41,10 +41,8 @@ type Product = { name: string; price: decimal }
 type ProductModule() = 
     inherit NappyModule<Product>()
     override this.Get() =
-        let product1 = { name = "A"; price = 3.99m}
-        let product2 = { name = "B"; price = 5.99m}
-        let product3 = { name = "C"; price = 7.99m}
-        [|product1; product2; product3|] |> Seq.cast
+        // return a list of URIs of where the product is at.
+		[|"1";"2";"3"|] |> Seq.cast
     override this.Get(id) =
         let product = { name = "A"; price = 3.99m}
         product
