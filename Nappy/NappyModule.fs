@@ -21,23 +21,31 @@ type NappyModule<'a> () =
         member this.Error(context, exn) = context |> ignore
         member this.Execute(description) = 
             let instanceType = this.GetType().BaseType.GenericTypeArguments |> Seq.head
-            let model = Binder.Bind(instanceType, description.Body, description.ContentType)
 
-            match description.Identifier with
-            | id when id |> String.IsNullOrEmpty -> 
-                match description.Method with
-                    | HttpMethod.Get -> this.Get() :> obj
-                    | HttpMethod.Put -> this.Put(model :?> IEnumerable<'a>) :> obj 
-                    | HttpMethod.Post -> this.Post(model :?> 'a) :> obj
-                    | HttpMethod.Delete -> this.Delete() :> obj
-            | id ->
-                match description.Method with
-                    | HttpMethod.Get -> this.Get(id) :> obj
-                    | HttpMethod.Put ->this.Put(id, model :?> IEnumerable<'a>) :> obj 
-                    | HttpMethod.Post -> this.Post(id, model :?> 'a) :> obj
-                    | HttpMethod.Delete -> this.Delete(id) :> obj
+            match description.Method with
+            | HttpMethod.Get ->
+                match description.Identifier with
+                | id when id |> String.IsNullOrEmpty -> this.Get() :> obj
+                | id ->  this.Get(id) :> obj
 
-    abstract member Get: unit -> IEnumerable<'a>
+            | HttpMethod.Post ->
+                let model = Binder.Bind(instanceType, description.Body, description.ContentType)
+                match description.Identifier with
+                | id when id |> String.IsNullOrEmpty -> this.Post(model :?> 'a) :> obj
+                | id -> this.Post(id, model :?> 'a) :> obj
+
+            | HttpMethod.Put ->
+                let model = Binder.Bind(typedefof<IEnumerable<_>>.MakeGenericType(instanceType), description.Body, description.ContentType)
+                match description.Identifier with
+                | id when id |> String.IsNullOrEmpty -> this.Put(model :?> IEnumerable<'a>) :> obj
+                | id -> this.Put(id, model :?> IEnumerable<'a>) :> obj
+
+            | HttpMethod.Delete ->
+                match description.Identifier with
+                | id when id |> String.IsNullOrEmpty -> this.Delete() :> obj
+                | id -> this.Delete(id) :> obj
+
+    abstract member Get: unit -> IEnumerable<string>
     abstract member Get: string -> 'a
 
     abstract member Post: 'a-> string
