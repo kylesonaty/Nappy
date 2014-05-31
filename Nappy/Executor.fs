@@ -9,6 +9,6 @@ module Executor =
         nappy.Before(context)
         let actionDescription = new ActionDescription(context)
         let result = nappy.Execute(actionDescription)
-        let s = JsonConvert.SerializeObject(result) // add serialization based on accepts header (json, xml, form?)
+        let serialized = Serializer.Serialize(context, result)
         nappy.After(context)
-        (context, s)
+        (context, serialized)

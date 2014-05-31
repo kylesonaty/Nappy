@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Nappy", "Nappy\Nappy.fsproj", "{A6737080-1F60-47F9-9186-7F543099F692}"
+Project("{4925A630-B079-445d-BCD4-3A9C94FE9307}") = "Nappy", "Nappy\Nappy.fsproj", "A6737080-1F60-47F9-9186-7F543099F692"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "NappyDemo", "NappyDemo\NappyDemo.fsproj", "{11EF0161-C58F-42C7-8A38-C55D56BA2672}"
+Project("{4925A630-B079-445d-BCD4-3A9C94FE9307}") = "NappyDemo", "NappyDemo\NappyDemo.fsproj", "11EF0161-C58F-42C7-8A38-C55D56BA2672"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,6 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{11EF0161-C58F-42C7-8A38-C55D56BA2672}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11EF0161-C58F-42C7-8A38-C55D56BA2672}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11EF0161-C58F-42C7-8A38-C55D56BA2672}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11EF0161-C58F-42C7-8A38-C55D56BA2672}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A6737080-1F60-47F9-9186-7F543099F692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A6737080-1F60-47F9-9186-7F543099F692}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6737080-1F60-47F9-9186-7F543099F692}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -19,6 +23,13 @@ Global
 		{11EF0161-C58F-42C7-8A38-C55D56BA2672}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{11EF0161-C58F-42C7-8A38-C55D56BA2672}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{11EF0161-C58F-42C7-8A38-C55D56BA2672}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6737080-1F60-47F9-9186-7F543099F692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6737080-1F60-47F9-9186-7F543099F692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6737080-1F60-47F9-9186-7F543099F692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6737080-1F60-47F9-9186-7F543099F692}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = NappyDemo\NappyDemo.fsproj
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
