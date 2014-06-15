@@ -12,7 +12,7 @@ open Newtonsoft.Json
 module Serializer = 
     
     let xmlSerialize (data:obj) = 
-        let serializer = new DataContractSerializer(t)
+        let serializer = new DataContractSerializer(data.GetType())
         let stringWriter = new StringWriter()
         let xmlWriter = new XmlTextWriter(stringWriter)
         serializer.WriteObject(xmlWriter, data)
@@ -23,5 +23,4 @@ module Serializer =
         match contentType with 
         | ContentType.Json -> JsonConvert.SerializeObject data
         | ContentType.Xml -> xmlSerialize data
-        | ContentType.Form -> failwith "Not Implemented"
         | _ -> JsonConvert.SerializeObject data
