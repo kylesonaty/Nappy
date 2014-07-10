@@ -45,7 +45,7 @@ type NappyModule<'a> () =
                 | id when id |> String.IsNullOrEmpty -> this.Delete() :> obj
                 | id -> this.Delete(id) :> obj
 
-    abstract member Get: unit -> IEnumerable<string>
+    abstract member Get: unit -> IEnumerable<'a>
     abstract member Get: string -> 'a
 
     abstract member Post: 'a-> string

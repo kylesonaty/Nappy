@@ -9,8 +9,11 @@ type Product = { name: string; price: decimal }
 type ProductModule() = 
     inherit NappyModule<Product>()
     override this.Get() =
-        printfn "This should get a list of URIs of items in the collection"
-        [|"1"; "2"; "3"|] |> Seq.cast
+        printfn "This should get a list products"
+        let product1 = { name = "A"; price = 3.99m}
+        let product2 = { name = "B"; price = 4.99m}
+        let product3 = { name = "C"; price = 5.99m}
+        [|product1;product2;product3|] |> Seq.cast
         
     override this.Get(id) =
         printfn "This should get the product at: %A" id

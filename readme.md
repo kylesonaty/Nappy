@@ -39,8 +39,11 @@ type Product = { name: string; price: decimal }
 type ProductModule() = 
     inherit NappyModule<Product>()
     override this.Get() =
-        // return a list of URIs of where the product is at.
-		[|"1";"2";"3"|] |> Seq.cast
+        // return a list of products.
+		let product1 = { name = "A"; price = 3.99m}
+        let product2 = { name = "B"; price = 4.99m}
+        let product3 = { name = "C"; price = 5.99m}
+        [|product1;product2;product3|] |> Seq.cast
     override this.Get(id) =
 		// return the product at the specified id
         let product = { name = "A"; price = 3.99m}
@@ -65,9 +68,6 @@ Work in process.
 
 ## Things to do ##
 
-- Model binding (based on passed in content type)
-- Finish PUT and POST (depends on model binding)
-- Content negotiation for response (only returns json, should support xml)
 - Implement W3C logging
 - Better error page for diagnoistics 
 - make more async
